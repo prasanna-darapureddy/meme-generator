@@ -20,34 +20,34 @@ interface IState {
 }
 
 function Meme() {
-    const [firstText, setfirstText] = useState<IState['firstState']>('')
-    const [secondText, setsecondText] = useState<IState['firstState']>('')
+    const [firstText, setFirstText] = useState<IState['firstState']>('')
+    const [secondText, setSecondText] = useState<IState['firstState']>('')
     const [imageUrl, setImageUrl] = useState<IState['imageUrl']>('')
-    const [text1FontSize, set1FontSize] = useState<IState['size']>(30);
-    const [text2FontSize, set2FontSize] = useState<IState['size']>(30);
+    const [text1FontSize, setText1FontSize] = useState<IState['size']>(30);
+    const [text2FontSize, setText2FontSize] = useState<IState['size']>(30);
     const [width, setWidth] = useState<IState['size']>(150);
     const [imagesList, setImagesList] = useState<IState['imagesList']>([]);
     const Iref = useRef()
 
     const onChangeFirstText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setfirstText(e.target.value)
+        setFirstText(e.target.value)
         if (firstText.length >= 20 && width >= 100) {
-            set1FontSize(text1FontSize => text1FontSize - 0.3)
+            setText1FontSize(text1FontSize => text1FontSize - 0.3)
             setWidth(150)
         } else {
-            set1FontSize(30);
+            setText1FontSize(30);
             setWidth(150)
         }
     }
 
     const onChangeSecondText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setsecondText(e.target.value)
+        setSecondText(e.target.value)
         if (secondText.length >= 20 && width >= 100) {
-            set2FontSize(text2FontSize => text2FontSize - 0.3)
+            setText2FontSize(text2FontSize => text2FontSize - 0.3)
             setWidth(150)
             console.log(text2FontSize)
         } else {
-            set2FontSize(30);
+            setText2FontSize(30);
             setWidth(150)
         }
     }
@@ -86,8 +86,8 @@ function Meme() {
                     link.href = canvas.toDataURL('image/png');
                     link.click();
                 });
-        setfirstText('')
-        setsecondText('')
+        setFirstText('')
+        setSecondText('')
     }
 
 
@@ -114,7 +114,7 @@ function Meme() {
                     <Box sx={styles.right_container}>
                         <Box sx={styles.images_container}>
                             {imagesList.map(eachMeme =>
-                                <Box component={'img'} src={eachMeme.url} sx={styles.array_images} onClick={() => onSelectImage(eachMeme.url)} />
+                                <Box component={'img'} key={eachMeme.id} src={eachMeme.url} sx={styles.array_images} onClick={() => onSelectImage(eachMeme.url)} />
                             )}
                         </Box>
                         <Box sx={styles.input_container}>
@@ -142,8 +142,3 @@ function Meme() {
 }
 
 export default Meme
-
-
-
-
-{/* {imageUrl && <Box component={'img'} src={imageUrl} alt='meme image' sx={styles.meme_img}/>} */ }
